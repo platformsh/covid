@@ -33,7 +33,6 @@ relationships:
 mounts:
   "/log": "shared:files/log"
   "/tmp": "shared:files/tmp"
-  "/db": "shared:files/db"
 
 web:
   commands:
