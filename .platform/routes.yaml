@@ -1,0 +1,5 @@
+# rails-platformsh/.platform/routes.yaml
+
+"https://{default}":
+  type: upstream
+  upstream: "app:http"

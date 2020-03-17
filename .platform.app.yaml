@@ -1,0 +1,40 @@
+# rails-platformsh/.platform.app.yaml
+name: "app"
+type: "ruby:2.6"
+disk: 1024
+
+hooks:
+  build: |
+    gem install bundler:2.0.2
+    # Install NVM
+    unset NPM_CONFIG_PREFIX
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | dash
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    nvm current
+    nvm install 10.16.3
+    nvm alias default 10.16.3
+    npm install yarn -g
+    bundle install
+    bundle exec rails webpacker:install
+    bundle exec rake assets:precompile
+  deploy: |
+    nvm use 10.16.3
+    rails db:migrate
+
+variables:
+    env:
+        RAILS_ENV: "production"
+
+relationships:
+    database: "database:postgresql"
+    cache: "cache:redis"
+
+mounts:
+  "/log": "shared:files/log"
+  "/tmp": "shared:files/tmp"
+  "/db": "shared:files/db"
+
+web:
+  commands:
+    start: 'bundle exec puma -C config/puma.rb'
