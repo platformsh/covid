@@ -80,6 +80,3 @@ test:
 #
 production:
   <<: *default
-  database: covid_production
-  username: covid
-  password: <%= ENV['COVID_DATABASE_PASSWORD'] %>
