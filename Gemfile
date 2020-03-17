@@ -36,7 +36,7 @@ gem 'devise'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 
-gem 'rails-i18n', github: 'svenfuchs/rails-i18n' # RAILS 6
+gem 'rails-i18n', '~> 6.0.0'
 
 gem 'brakeman'
 gem 'phony_rails'
