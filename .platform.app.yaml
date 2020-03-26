@@ -37,3 +37,9 @@ mounts:
 web:
   commands:
     start: 'bundle exec puma -C config/puma.rb'
+source:
+    operations:
+        unit_test:
+            command: |
+                bundle install
+                bundle exec rake spec
